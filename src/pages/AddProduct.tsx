@@ -1,4 +1,10 @@
+import { UploadImageCard } from "../components";
+
 const AddProduct = () => {
-  return <h1>Addproduct</h1>;
+  return (
+    <div className="addproduct_container">
+      <UploadImageCard />
+    </div>
+  );
 };
 export default AddProduct;
