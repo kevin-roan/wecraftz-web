@@ -1,0 +1,80 @@
+.signup {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2vmax;
+
+  .signupbox_container {
+    background-color: #0F172A;
+    min-height: 20rem;
+    width: 80vmax;
+    border-radius: 8px;
+    display: flex;
+  }
+
+  label {
+    font-size: 0.7rem;
+    color: white;
+    font-weight: 600;
+  }
+
+  input {
+    padding: 1rem;
+    background-color: #4A505E;
+    border: none;
+    width: 80%;
+    border-radius: 6px;
+    color: white;
+  }
+
+  section {
+    width: 50rem;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+    padding: 2vmax;
+
+    select {
+      padding: 1rem;
+      width: 80%;
+      background-color: #4A505E;
+      color: white;
+      border: none;
+      border-radius: 6px;
+    }
+
+    .signup_button {
+      padding: 1rem 5rem;
+      background-color: var(--primary-color);
+      border: 1px solid #000;
+      border-radius: 8px;
+      font-weight: 600;
+
+      &:hover {
+        background-color: white;
+        border: 1px solid var(--primary-color);
+        color: black;
+        transition: ease-in-out 0.3s;
+        cursor: pointer;
+        text-decoration: underline;
+      }
+    }
+
+    .text_gray {
+      color: gray;
+      font-weight: 500;
+
+      i {
+        color: white;
+
+        &:hover {
+          color: var(--primary-color);
+          border-bottom: 1px solid white;
+          transition: ease-in-out 0.3s;
+          cursor: pointer;
+        }
+      }
+    }
+  }
+}

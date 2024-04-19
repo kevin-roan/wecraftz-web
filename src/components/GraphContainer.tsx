@@ -2,12 +2,13 @@ import GraphCard from "./GraphCard";
 import PieChart from "./Graphs/PieChart";
 import VerticalChart from "./Graphs/VerticalChart";
 import ProductContainer from "./ProductContainer";
+import DoughnutCart from "./Graphs/DoughnutCart.tsx";
 
 const GraphContainer = () => {
   return (
     <div className="bottom">
       <GraphCard title="Sales Overtime" children={<VerticalChart />} />
-      <GraphCard title="Analytics" children={<PieChart />} />
+      <GraphCard title="Analytics" children={<DoughnutCart />} />
       <GraphCard
         title="Best Selling Products"
         children={<ProductContainer />}

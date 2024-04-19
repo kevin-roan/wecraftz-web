@@ -1,8 +1,9 @@
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import { Home } from "../pages";
+import { Home, Login } from "../pages";
 import AddProduct from "../pages/AddProduct";
 import BottomLayout from "../components/BottomLayout";
 import GraphContainer from "../components/GraphContainer";
+import SignUp from "../pages/Signup";
 
 const RoutesLayouts = () => {
   return (
@@ -30,6 +31,23 @@ const RoutesLayouts = () => {
           element={
             <BottomLayout>
               <AddProduct />
+            </BottomLayout>
+          }
+        />
+        <Route
+          path="/signup"
+          element={
+            <BottomLayout>
+              <SignUp />
+            </BottomLayout>
+          }
+        />
+
+        <Route
+          path="/login"
+          element={
+            <BottomLayout>
+              <Login />
             </BottomLayout>
           }
         />
