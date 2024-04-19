@@ -11,3 +11,13 @@
     font-size: 1rem;
   }
 }
+
+.chart_container {
+  display: flex;
+  gap: 4rem;
+  padding: 0 2rem;
+}
+
+.chart_context {
+  list-style: none;
+}
