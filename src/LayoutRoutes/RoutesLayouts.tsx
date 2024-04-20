@@ -4,6 +4,7 @@ import AddProduct from "../pages/AddProduct";
 import BottomLayout from "../components/BottomLayout";
 import GraphContainer from "../components/GraphContainer";
 import SignUp from "../pages/Signup";
+import Table from "../components/Table";
 
 const RoutesLayouts = () => {
   return (
@@ -23,6 +24,14 @@ const RoutesLayouts = () => {
           element={
             <BottomLayout>
               <GraphContainer />
+            </BottomLayout>
+          }
+        />
+        <Route
+          path="/products"
+          element={
+            <BottomLayout>
+              <Table />
             </BottomLayout>
           }
         />

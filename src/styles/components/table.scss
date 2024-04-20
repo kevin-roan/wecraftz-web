@@ -1,0 +1,32 @@
+.table {
+  display: flex;
+  justify-content: center;
+  padding: 4vmax 0vmax;
+  border-spacing: 1;
+  border-collapse: collapse;
+  background: white;
+  border-radius: 6px;
+  overflow: hidden;
+  max-width: 800px;
+  width: 100%;
+  margin: 0 auto;
+
+  thead tr {
+    color: black;
+    background-color: lightgray;
+
+    th {
+      padding: 0.3rem 1rem;
+    }
+  }
+
+  tbody tr {
+    margin: 1rem;
+    color: black;
+    background-color: #eeeeee;
+
+    :nth-child(even) {
+      background-color: white;
+    }
+  }
+}

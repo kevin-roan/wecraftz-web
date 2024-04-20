@@ -13,6 +13,8 @@ const GeneralInformationCard = () => {
           <option>Inches</option>
           <option>Centimeter</option>
         </select>
+        <input className="numberinput" placeholder="0" /> X
+        <input className="numberinput" placeholder="0" /> Inches
       </div>
       <div>
         <label>Shape</label>
@@ -24,9 +26,14 @@ const GeneralInformationCard = () => {
       </div>
       <div className="color_switcher">
         <label>Color</label>
-        <Color />
-        <Color />
-        <Color />
+        <div className="colorbutton_container">
+          <Color color="red" />
+          <Color color="purple" />
+          <Color color="violet" />
+          <Color color="orange" />
+          <Color color="limegreen" />
+          <span className="addnewcolor">+</span>
+        </div>
       </div>
     </div>
   );
@@ -34,6 +41,6 @@ const GeneralInformationCard = () => {
 
 export default GeneralInformationCard;
 
-const Color = () => (
-  <span className="color_button" style={{ backgroundColor: "red" }}></span>
+const Color: React.FC<{ color: string }> = ({ color }) => (
+  <span className="color_button" style={{ backgroundColor: color }}></span>
 );
