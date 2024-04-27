@@ -1,11 +1,15 @@
 import { useState } from "react";
 import { getDatabase, ref, set } from "firebase/database";
+import { app, db } from "../Helpers/firebaseConfig.js";
+import { collection, addDoc } from "firebase/firestore";
 
 const GeneralInformationCard = () => {
   const [formData, setFormData] = useState({
     productname: "",
     description: "",
   });
+
+  const [prodId, setProdId] = useState<string | null>(null);
   const handleInputChange = (e) => {
     const { id, value } = e.target;
     setFormData((prevData) => ({
@@ -14,18 +18,21 @@ const GeneralInformationCard = () => {
     }));
   };
   const handleSubmit = () => {
-    const writeProductData = async () => {
-      const db = getDatabase();
+    const addProduct = async () => {
       try {
-        await set(ref(db, "products/"), {
-          productname: formData.productname,
+        const docRef = await addDoc(collection(db, "products"), {
+          productName: formData.productname,
           description: formData.description,
         });
+        if (docRef.id) {
+          setProdId(docRef.id);
+          console.log("Product added to upload list", docRef.id);
+        }
       } catch (error) {
-        console.log(error);
+        console.error("Failed to add product", error);
       }
     };
-    writeProductData();
+    addProduct();
   };
   return (
     <div className="generalinformationcard">
