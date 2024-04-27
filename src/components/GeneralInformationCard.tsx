@@ -1,12 +1,35 @@
+import { useState } from "react";
+import { getDatabase, ref, set } from "firebase/database";
+
 const GeneralInformationCard = () => {
-  const handleInputChange = () => {};
+  const [formData, setFormData] = useState({
+    productname: "",
+    description: "",
+  });
+  const handleInputChange = (e) => {
+    const { id, value } = e.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      [id]: value,
+    }));
+  };
+  const handleSubmit = () => {
+    const writeProductData = async () => {
+      const db = getDatabase();
+      await set(ref(db, "products/"), {
+        productname: formData.productname,
+        description: formData.description,
+      });
+    };
+    writeProductData();
+  };
   return (
     <div className="generalinformationcard">
       <h4>General Information</h4>
       <label> Product Name </label>
-      <input type="text" onChange={handleInputChange} />
+      <input type="text" onChange={handleInputChange} id="productname" />
       <label>Description</label>
-      <textarea onChange={handleInputChange} />
+      <textarea onChange={handleInputChange} id="description" />
       <div>
         <label>Size</label>
         <select>
@@ -34,6 +57,7 @@ const GeneralInformationCard = () => {
           <Color color="limegreen" />
           <span className="addnewcolor">+</span>
         </div>
+        <button onClick={handleSubmit}>Submit</button>
       </div>
     </div>
   );

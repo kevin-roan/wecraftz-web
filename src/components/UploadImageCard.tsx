@@ -1,5 +1,7 @@
 import productImage from "../assets/productimage.png";
 import { IoMdAddCircle } from "react-icons/io";
+import { storage, storageRef } from "../Helpers/firebaseFirestore.js";
+import { useState } from "react";
 
 const UploadImageCard = () => {
   return (
@@ -14,11 +16,19 @@ const UploadImageCard = () => {
 };
 
 const ImageStack = () => {
+  const [filedata, setFiledata] = useState();
+  const handleChange = (e) => {
+    const file = e.target.files;
+    console.log(file);
+    setFiledata(file);
+  };
+
   const handleImageStackClick = () => {
     window.alert("Add to Imagestack Button clicked");
   };
   return (
     <div className="imagestack_container">
+      <input type="file" onChange={handleChange} />
       <img src={productImage} alt="imageonstack0" />
       <img src={productImage} alt="imageonstack1" />
       <img src={productImage} alt="imageonstack2" />
