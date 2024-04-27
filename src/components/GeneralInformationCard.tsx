@@ -16,10 +16,14 @@ const GeneralInformationCard = () => {
   const handleSubmit = () => {
     const writeProductData = async () => {
       const db = getDatabase();
-      await set(ref(db, "products/"), {
-        productname: formData.productname,
-        description: formData.description,
-      });
+      try {
+        await set(ref(db, "products/"), {
+          productname: formData.productname,
+          description: formData.description,
+        });
+      } catch (error) {
+        console.log(error);
+      }
     };
     writeProductData();
   };
