@@ -3,7 +3,16 @@ import { getDatabase, ref, set } from "firebase/database";
 import { app, db } from "../Helpers/firebaseConfig.js";
 import { collection, addDoc } from "firebase/firestore";
 
-const GeneralInformationCard = () => {
+import { addProductDetails } from "../Redux/productDataSlice.js";
+import { useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
+
+const GeneralInformationCard = ({ imageData }) => {
+  const dispatch = useDispatch();
+  // fetching formdata from slice
+  // const formDataList = useSelector((state) => state.addproduct.formDataList);
+  // console.log(formDataList);
+
   const [formData, setFormData] = useState({
     productname: "",
     description: "",
@@ -18,21 +27,22 @@ const GeneralInformationCard = () => {
     }));
   };
   const handleSubmit = () => {
-    const addProduct = async () => {
-      try {
-        const docRef = await addDoc(collection(db, "products"), {
-          productName: formData.productname,
-          description: formData.description,
-        });
-        if (docRef.id) {
-          setProdId(docRef.id);
-          console.log("Product added to upload list", docRef.id);
-        }
-      } catch (error) {
-        console.error("Failed to add product", error);
-      }
-    };
-    addProduct();
+    // const addProduct = async () => {
+    //   try {
+    //     const docRef = await addDoc(collection(db, "products"), {
+    //       productName: formData.productname,
+    //       description: formData.description,
+    //     });
+    //     if (docRef.id) {
+    //       setProdId(docRef.id);
+    //       console.log("Product added to upload list", docRef.id);
+    //     }
+    //   } catch (error) {
+    //     console.error("Failed to add product", error);
+    //   }
+    // };
+    // addProduct();
+    dispatch(addProductDetails(formData));
   };
   return (
     <div className="generalinformationcard">
