@@ -6,6 +6,7 @@ export const productDataSlice = createSlice({
     formDataList: [],
     stockDataList: [],
     isUploading: false,
+    productData: [],
   },
   reducers: {
     addProductDetails: (state, action) => {
@@ -18,10 +19,18 @@ export const productDataSlice = createSlice({
     startUpload: (state) => {
       state.isUploading = true;
     },
+    setData: (state, action) => {
+      state.productData = { ...state.productData, ...action.payload };
+    },
   },
 });
 
-export const { addProductDetails, addStockDetails, startUpload } =
-  productDataSlice.actions;
+export const {
+  addProductDetails,
+  addStockDetails,
+  startUpload,
+  setData,
+  setImageUrl,
+} = productDataSlice.actions;
 
 export default productDataSlice.reducer;

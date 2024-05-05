@@ -1,26 +1,14 @@
 import { useState, useEffect } from "react";
 import { addStockDetails } from "../Redux/productDataSlice.js";
+import { setData } from "../Redux/productDataSlice.js";
 import { useDispatch } from "react-redux";
 
 const PricingStockCard = () => {
   const dispatch = useDispatch();
 
-  const [formData, setFormData] = useState({
-    price: "",
-    stock: "",
-    discounted_price: "",
-  });
-
-  const handleSubmit = () => {
-    dispatch(addStockDetails(formData));
-  };
-
   const handleChange = (e) => {
     const { id, value } = e.target;
-    setFormData((prevData) => ({
-      ...prevData,
-      [id]: value,
-    }));
+    dispatch(setData({ [id]: value }));
   };
   return (
     <div className="pricingstockcard">
@@ -38,7 +26,6 @@ const PricingStockCard = () => {
       <div className="pricingstockcard_bottom">
         <label>Discounted Price</label>
         <input type="number" onChange={handleChange} id="discounted_price" />
-        <button onClick={handleSubmit}>Submit</button>
       </div>
     </div>
   );

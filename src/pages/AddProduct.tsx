@@ -11,32 +11,17 @@ import { uploadBytes } from "firebase/storage";
 import { getStorage } from "firebase/storage";
 import { ref } from "firebase/storage";
 
-import {
-  addProductDetails,
-  addStockDetails,
-} from "../Redux/productDataSlice.js";
-import { getDatabase, set } from "firebase/database";
 import { app, db } from "../Helpers/firebaseConfig.js";
 import { collection, addDoc } from "firebase/firestore";
 
 const AddProduct = () => {
   const [imageData, setImageData] = useState(null);
 
-  const productData = useSelector((state) => state.addproduct.formDataList);
-  const stockData = useSelector((state) => state.addproduct.stockDataList);
   // lifting the state up
   const handleImageData = (data) => {
     setImageData(data);
+    console.log("akjdk", data);
   };
-  useEffect(() => {
-    console.log(
-      "all the data",
-      "image data=>",
-      imageData,
-      "formdata=>",
-      productData
-    );
-  });
   return (
     <div
       style={{
@@ -58,26 +43,22 @@ const AddProduct = () => {
 };
 
 const Navbar = ({ imageData }) => {
-  const [prodId, setProdId] = useState<string | null>(null);
   const dispatch = useDispatch();
   const handleAddproduct = () => {
     dispatch(startUpload());
   };
 
+  const newprodData = useSelector((state) => state.addproduct.productData);
   const isUpload = useSelector((state) => state.addproduct.isUploading);
-  const formDataList = useSelector((state) => state.addproduct.formDataList);
-  const productName =
-    formDataList.length > 0 ? formDataList[0].productname : "";
-  const description =
-    formDataList.length > 0 ? formDataList[0].description : "";
+  console.log("new prduct name", newprodData.productname);
 
-  const stockDataList = useSelector((state) => state.addproduct.stockDataList);
-  console.log(stockDataList, "stock is ");
-  const price = stockDataList.length > 0 ? stockDataList[0].price : "";
-
-  const stock = stockDataList.length > 0 ? stockDataList[0].stock : "";
+  const productName = newprodData.productname;
+  const description = newprodData.description;
+  const price = newprodData.price;
+  const stock = newprodData.stock;
 
   useEffect(() => {
+    // Define addProduct function inside useEffect
     const addProduct = async () => {
       try {
         const docRef = await addDoc(collection(db, "products"), {
@@ -86,32 +67,37 @@ const Navbar = ({ imageData }) => {
           price: price,
           stock: stock,
         });
-        if (docRef.id) {
-          setProdId(docRef.id);
+        // may be docRef.id is not null
+
+        if (docRef.id !== null && docRef.id !== undefined) {
           console.log("Product added to upload list", docRef.id);
-          uploadProdImage(imageData);
+          const prodId = docRef.id;
+          uploadProdImage(imageData, prodId);
         }
       } catch (error) {
         console.error("Failed to add product", error);
       }
     };
 
-    const uploadProdImage = (filedata) => {
+    // Call addProduct function if isUpload is true
+
+    const uploadProdImage = (filedata, prodId) => {
       const storage = getStorage(app);
-      if (prodId) {
+      if (prodId && filedata) {
         const storageRef = ref(storage, `products/${prodId}/productimage`);
         uploadBytes(storageRef, filedata).then((snapshot) => {
           console.log("Uploaded a blob or file!");
           window.alert("Added New Prodcut");
         });
       } else {
-        window.alert("Invalid Id");
+        window.alert("Invalid docId");
       }
     };
     if (isUpload) {
       addProduct();
     }
-  }, [isUpload, productName, description, imageData]);
+    // production notes => add here, image and product details to update database without reloading the page
+  }, [isUpload]);
 
   return (
     <div className="navbar">

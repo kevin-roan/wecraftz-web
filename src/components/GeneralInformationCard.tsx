@@ -1,48 +1,14 @@
-import { useState } from "react";
-import { getDatabase, ref, set } from "firebase/database";
-import { app, db } from "../Helpers/firebaseConfig.js";
-import { collection, addDoc } from "firebase/firestore";
+import { setData } from "../Redux/productDataSlice.js";
+import { ChangeEvent } from "react";
 
-import { addProductDetails } from "../Redux/productDataSlice.js";
 import { useDispatch } from "react-redux";
-import { useSelector } from "react-redux";
 
-const GeneralInformationCard = ({ imageData }) => {
+const GeneralInformationCard = () => {
   const dispatch = useDispatch();
-  // fetching formdata from slice
-  // const formDataList = useSelector((state) => state.addproduct.formDataList);
-  // console.log(formDataList);
 
-  const [formData, setFormData] = useState({
-    productname: "",
-    description: "",
-  });
-
-  const [prodId, setProdId] = useState<string | null>(null);
-  const handleInputChange = (e) => {
+  const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { id, value } = e.target;
-    setFormData((prevData) => ({
-      ...prevData,
-      [id]: value,
-    }));
-  };
-  const handleSubmit = () => {
-    // const addProduct = async () => {
-    //   try {
-    //     const docRef = await addDoc(collection(db, "products"), {
-    //       productName: formData.productname,
-    //       description: formData.description,
-    //     });
-    //     if (docRef.id) {
-    //       setProdId(docRef.id);
-    //       console.log("Product added to upload list", docRef.id);
-    //     }
-    //   } catch (error) {
-    //     console.error("Failed to add product", error);
-    //   }
-    // };
-    // addProduct();
-    dispatch(addProductDetails(formData));
+    dispatch(setData({ [id]: value }));
   };
   return (
     <div className="generalinformationcard">
@@ -50,7 +16,12 @@ const GeneralInformationCard = ({ imageData }) => {
       <label> Product Name </label>
       <input type="text" onChange={handleInputChange} id="productname" />
       <label>Description</label>
-      <textarea onChange={handleInputChange} id="description" />
+      <input
+        type="text"
+        onChange={handleInputChange}
+        id="description"
+        style={{ height: 100 }}
+      />
       <div>
         <label>Size</label>
         <select>
@@ -78,7 +49,6 @@ const GeneralInformationCard = ({ imageData }) => {
           <Color color="limegreen" />
           <span className="addnewcolor">+</span>
         </div>
-        <button onClick={handleSubmit}>Submit</button>
       </div>
     </div>
   );
