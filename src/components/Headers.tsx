@@ -10,9 +10,11 @@ const Header = () => {
       <div className="logo">
         <img src={logo_dark} alt="logo dark" />
       </div>
-      <div className="search">
-        <input placeholder="search" onChange={handleInputChange} />
-      </div>
+      <input
+        placeholder="search"
+        onChange={handleInputChange}
+        className="search"
+      />
       <div className="iconbox_container">
         <IconBox />
         <IconBox />

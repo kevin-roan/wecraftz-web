@@ -54,6 +54,15 @@ const RoutesLayouts = () => {
             }
           />
           <Route
+            path="/"
+            element={
+              <BottomLayout>
+                <GraphContainer />
+              </BottomLayout>
+            }
+          />
+
+          <Route
             path="/products"
             element={
               <BottomLayout>

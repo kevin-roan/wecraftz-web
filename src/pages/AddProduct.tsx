@@ -78,7 +78,6 @@ const Navbar = ({ imageData }) => {
   const stock = stockDataList.length > 0 ? stockDataList[0].stock : "";
 
   useEffect(() => {
-    // Define addProduct function inside useEffect
     const addProduct = async () => {
       try {
         const docRef = await addDoc(collection(db, "products"), {
@@ -97,15 +96,17 @@ const Navbar = ({ imageData }) => {
       }
     };
 
-    // Call addProduct function if isUpload is true
-
     const uploadProdImage = (filedata) => {
       const storage = getStorage(app);
-      const storageRef = ref(storage, `products/${prodId}/productimage`);
-      uploadBytes(storageRef, filedata).then((snapshot) => {
-        console.log("Uploaded a blob or file!");
-        window.alert("Added New Prodcut");
-      });
+      if (prodId) {
+        const storageRef = ref(storage, `products/${prodId}/productimage`);
+        uploadBytes(storageRef, filedata).then((snapshot) => {
+          console.log("Uploaded a blob or file!");
+          window.alert("Added New Prodcut");
+        });
+      } else {
+        window.alert("Invalid Id");
+      }
     };
     if (isUpload) {
       addProduct();

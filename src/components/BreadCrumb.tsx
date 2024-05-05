@@ -5,10 +5,11 @@ const Breadcrumb = () => {
   return (
     <div className="breadcrumb">
       <ul>
-        <a href="/dashboard"> Dashboard "{">"}"</a>
-        <a href="/orders"> Orders "{">"}"</a>
-        <a href="/products"> Products "{">"}"</a>
-        <a href="/customers"> Customers ></a>
+        <a href="/dashboard"> Dashboard |</a>
+        <a href="/orders"> Orders | </a>
+        <a href="/products"> Products | </a>
+        <a href="/addproduct"> Add Product | </a>
+        <a href="/customers"> Customers </a>
       </ul>
     </div>
   );
