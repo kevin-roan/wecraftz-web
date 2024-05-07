@@ -50,7 +50,6 @@ const Navbar = ({ imageData }) => {
 
   const newprodData = useSelector((state) => state.addproduct.productData);
   const isUpload = useSelector((state) => state.addproduct.isUploading);
-  console.log("new prduct name", newprodData.productname);
 
   const productName = newprodData.productname;
   const description = newprodData.description;
